@@ -5,7 +5,7 @@ const GameBoard = (function(){
     const $addButton = document.querySelector('#addButton');
     const $display = document.querySelector('#display');  
 
-    $addButton.addEventListener('click', addMarker);
+    //$addButton.addEventListener('click', addMarker);
 
     function _render() {
         $input.value="";

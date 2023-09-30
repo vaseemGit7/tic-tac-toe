@@ -13,3 +13,24 @@ html{
 body{
     font-family: 'Poppins', sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameBoard{
+    display: grid;
+    width: 484px;
+    height: 484px;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    border: 2px solid black;
+}
+
+.field{
+    font-size: 6.0rem;
+    text-align: center;
+    border: 2px solid black;
+}
