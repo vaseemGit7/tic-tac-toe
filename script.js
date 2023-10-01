@@ -1,22 +1,24 @@
 const GameBoard = (function(){
     let gameBoard = [];
 
-    const $input = document.querySelector('.input');
-    const $addButton = document.querySelector('#addButton');
-    const $display = document.querySelector('#display');  
+    const $fields = document.querySelectorAll('.field'); 
 
-    //$addButton.addEventListener('click', addMarker);
 
-    function _render() {
-        $input.value="";
-        $display.textContent ="";
-        for(let i = 0;i<gameBoard.length;i++){
-            $display.textContent += gameBoard[i];
-        }
+    $fields.forEach((field)=>{
+        let fieldAttr = field.getAttribute('data-index');
+        field.addEventListener('click',()=>{
+            const $fieldEle = document.querySelector(`[data-index="${fieldAttr}"]`);
+            console.log($fieldEle);
+            addMarker($fieldEle);
+        })
+    })   
+    
+
+    function _render(field) {
+        field.textContent = "X";
     }
     
-    function addMarker() {
-        gameBoard.push($input.value);
-        _render();
+    function addMarker(value) {
+        _render(value);
     } 
 })();
