@@ -1,24 +1,32 @@
-const GameBoard = (function(){
-    let gameBoard = [];
+const gameBoard = (function(){
+    let board = [];
+
+    const setField = (index,sign)=>{
+        board[index]=sign;
+    }
+
+    const getField = (index) =>{
+        return board[index];
+    }
+
+    return (setField, getField);
+})();
+
+const displayController = (function(){
 
     const $fields = document.querySelectorAll('.field'); 
 
-
     $fields.forEach((field)=>{
-        let fieldAttr = field.getAttribute('data-index');
-        field.addEventListener('click',()=>{
-            const $fieldEle = document.querySelector(`[data-index="${fieldAttr}"]`);
-            console.log($fieldEle);
-            addMarker($fieldEle);
+        field.addEventListener('click',(e)=>{
+            
         })
     })   
-    
 
-    function _render(field) {
-        field.textContent = "X";
+    const _renderGameBoard = () =>{
+        for(let i = 0;i<$fields.length;i++){
+            $fields[i].textContent = gameBoard.getField(i);
+        }
     }
     
-    function addMarker(value) {
-        _render(value);
-    } 
+
 })();
