@@ -30,8 +30,10 @@ const displayController = (function(){
 
     $fields.forEach((field)=>{
         field.addEventListener('click',(e)=>{
-            gameController.playRound(parseInt(e.target.dataset.index));
-            _renderGameBoard();
+            if(e.target.textContent === ""){
+                gameController.playRound(parseInt(e.target.dataset.index));
+                _renderGameBoard();
+            }
         })
     })   
 
