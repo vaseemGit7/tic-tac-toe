@@ -57,8 +57,35 @@ const gameController =(function(){
 
     const playRound = (index) =>{
         gameBoard.setField(index,currentPlayer.getSign());
+        _checkWinner(index);
         _switchPlayers();
     }
 
+    const _checkWinner = (fieldIndex) =>{
+        const winConditions = [
+            [0,1,2],
+            [3,4,5],
+            [6,7,8],
+            [0,3,6],
+            [1,4,7],
+            [2,5,8],
+            [0,4,8],
+            [2,4,6]
+        ]
+
+        let checkConditions = winConditions.filter((condition)=>
+            condition.includes(fieldIndex))
+            .some((possible)=>possible.every((index)=>gameBoard.getField(index)===currentPlayer.getSign())
+        );
+
+        if(checkConditions === true){
+            if(currentPlayer.getSign()==="X"){
+            console.log("Player One is the winner!");
+            }
+            else{
+            console.log("Player Two is the winner!");    
+            }
+        }
+    }
     return{playRound};
 })();
