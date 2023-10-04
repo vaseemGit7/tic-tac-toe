@@ -21,7 +21,13 @@ const gameBoard = (function(){
         return board[index];
     }
 
-    return {setField, getField};
+    const reset = () =>{
+        for(let i=0;i<board.length;i++){
+            board[i] = "";
+        }
+    }
+
+    return {setField, getField, reset};
 })();
 
 const displayController = (function(){
@@ -49,6 +55,12 @@ const gameController =(function(){
     const playerOne = Player("PlayerOne","X");
     const playerTwo = Player("PlayerTwo","O");
 
+    let playerOneWins = 0;
+    let playerTwoWins = 0;
+    let roundWinner = "";
+
+    let moves = 0;
+
     let currentPlayer = playerOne;
 
     const _switchPlayers = () =>{
@@ -56,12 +68,15 @@ const gameController =(function(){
     }
 
     const playRound = (index) =>{
+        moves++;
         gameBoard.setField(index,currentPlayer.getSign());
-        _checkWinner(index);
+        _checkRoundWinner(index);
+        _isDraw();
+        _determineWinner();
         _switchPlayers();
     }
 
-    const _checkWinner = (fieldIndex) =>{
+    const _checkRoundWinner = (fieldIndex) =>{
         const winConditions = [
             [0,1,2],
             [3,4,5],
@@ -80,12 +95,41 @@ const gameController =(function(){
 
         if(checkConditions === true){
             if(currentPlayer.getSign()==="X"){
-            console.log("Player One is the winner!");
+            playerOneWins++;
+            roundWinner = "playerOne";
+            console.log("Player One is the round winner");
             }
             else{
-            console.log("Player Two is the winner!");    
+            playerTwoWins++;  
+            roundWinner = "playerTwo";
+            console.log("Player Two is the round winner"); 
             }
+            _gamereset();
         }
+        return checkConditions;
     }
+
+    const _isDraw = () =>{
+        if(_checkRoundWinner()===false && moves === 9){
+            console.log("it is a draw");
+            _gamereset();
+        }    
+    }
+
+    const _determineWinner = () =>{
+        if(playerOneWins===3){
+            console.log("Player One wins");
+        } 
+        if(playerTwoWins===3){
+            console.log("Player Two wins");
+        } 
+    }
+
+    const _gamereset = () =>{
+        gameBoard.reset();
+        roundWinner = "";
+        moves = 0; 
+    }
+
     return{playRound};
 })();
