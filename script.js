@@ -48,7 +48,15 @@ const displayController = (function(){
     const $playerTwoStats = document.querySelector('#playerTwoStats');
     const $playerTwoName = $playerTwoStats.querySelector('#playerTwoName');
     const $playerTwoScore = $playerTwoStats.querySelector('#playerTwoScore');
- 
+
+    const $showModal = document.querySelector('.showModal');
+    const $endgameDialogModal = document.querySelector('#endgameDialogModal');
+    
+    $showModal.addEventListener('click',(e)=>{
+        e.preventDefault();
+        $endgameDialogModal.showModal();
+    })
+
     window.onload = () =>{
         _displayCurrentPlayer();
         _displayGameStats();
@@ -94,6 +102,8 @@ const gameController =(function(){
     let playerTwoWins = 0;
     let drawCount = 0;
     let roundWinner = "";
+    let winner = "";
+    let isOver = false;
 
     let moves = 0;
 
@@ -171,11 +181,23 @@ const gameController =(function(){
 
     const _determineWinner = () =>{
         if(getPlayerOneScore()===3){
-            console.log("Player One wins");
+            winner = "Player One";
+            isOver = true;
         } 
         if(getPlayerTwoScore()===3){
-            console.log("Player Two wins");
+            winner = "Player Two";
+            isOver = true;
         } 
+    }
+
+    const gameOver = () =>{
+        const getWinner = () =>{
+            return winner;
+        }
+
+        const getIsOver = () =>{
+            return isOver; 
+        }
     }
 
     const _gamereset = () =>{
