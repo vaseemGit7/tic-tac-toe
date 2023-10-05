@@ -2,10 +2,14 @@ const Player = (name,sign) =>{
     this.name = name;
     this.sign = sign;
 
+    const getName = () =>{
+        return name;
+    }
+
     const getSign = () =>{
         return sign;
     }
-    return {getSign};
+    return {getName, getSign};
 }
 
 const gameBoard = (function(){
@@ -33,15 +37,46 @@ const gameBoard = (function(){
 const displayController = (function(){
 
     const $fields = document.querySelectorAll('.field'); 
+    const $turnDisplay = document.querySelector('#turnDisplay');
+
+    const $playerOneStats = document.querySelector('#playerOneStats');
+    const $playerOneName = $playerOneStats.querySelector('#playerOneName');
+    const $playerOneScore = $playerOneStats.querySelector('#playerOneScore');
+
+    const $drawScore = document.querySelector('#drawScore');
+
+    const $playerTwoStats = document.querySelector('#playerTwoStats');
+    const $playerTwoName = $playerTwoStats.querySelector('#playerTwoName');
+    const $playerTwoScore = $playerTwoStats.querySelector('#playerTwoScore');
+ 
+    window.onload = () =>{
+        _displayCurrentPlayer();
+        _displayGameStats();
+    }
 
     $fields.forEach((field)=>{
         field.addEventListener('click',(e)=>{
             if(e.target.textContent === ""){
                 gameController.playRound(parseInt(e.target.dataset.index));
+                _displayCurrentPlayer();
+                _displayGameStats();
                 _renderGameBoard();
             }
         })
     })   
+
+    const _displayCurrentPlayer = () =>{
+        $turnDisplay.textContent=gameController.getCurrentPlayerName()+"'s turn";
+    }
+
+    const _displayGameStats = () =>{
+        $playerOneName.textContent = "PlayerOne";
+        $playerTwoName.textContent = "PlayerTwo";
+
+        $playerOneScore.textContent = gameController.getPlayerOneScore();
+        $drawScore.textContent = gameController.getDrawScore();
+        $playerTwoScore.textContent = gameController.getPlayerTwoScore();
+    }
 
     const _renderGameBoard = () =>{
         for(let i = 0;i<$fields.length;i++){
@@ -57,6 +92,7 @@ const gameController =(function(){
 
     let playerOneWins = 0;
     let playerTwoWins = 0;
+    let drawCount = 0;
     let roundWinner = "";
 
     let moves = 0;
@@ -65,6 +101,22 @@ const gameController =(function(){
 
     const _switchPlayers = () =>{
         currentPlayer = (currentPlayer === playerOne) ? playerTwo : playerOne;
+    }
+
+    const getCurrentPlayerName = () =>{
+        return currentPlayer.getName();
+    }
+
+    const getPlayerOneScore = () =>{
+        return playerOneWins;
+    }
+
+    const getPlayerTwoScore = () =>{
+        return playerTwoWins;
+    }
+
+    const getDrawScore = () =>{
+        return drawCount;
     }
 
     const playRound = (index) =>{
@@ -112,15 +164,16 @@ const gameController =(function(){
     const _isDraw = () =>{
         if(_checkRoundWinner()===false && moves === 9){
             console.log("it is a draw");
+            drawCount++;
             _gamereset();
         }    
     }
 
     const _determineWinner = () =>{
-        if(playerOneWins===3){
+        if(getPlayerOneScore()===3){
             console.log("Player One wins");
         } 
-        if(playerTwoWins===3){
+        if(getPlayerTwoScore()===3){
             console.log("Player Two wins");
         } 
     }
@@ -131,5 +184,5 @@ const gameController =(function(){
         moves = 0; 
     }
 
-    return{playRound};
+    return{playRound, getCurrentPlayerName, getPlayerOneScore, getPlayerTwoScore, getDrawScore};
 })();
