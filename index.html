@@ -9,37 +9,39 @@
     <script defer src="./script.js"></script>
 </head>
 <body>
-    <div class="game-header-container" id = gameHeader>
-        <div class="turn-display" id="turnDisplay">Test's Turn</div>
-    </div>
-    <div class="gameboard-container">
-        <div class="gameBoard">
-            <div class="field" data-index="0"></div>
-            <div class="field" data-index="1"></div>
-            <div class="field" data-index="2"></div>
-            <div class="field" data-index="3"></div>
-            <div class="field" data-index="4"></div>
-            <div class="field" data-index="5"></div>
-            <div class="field" data-index="6"></div>
-            <div class="field" data-index="7"></div>
-            <div class="field" data-index="8"></div>
+    <div class="game-container">
+        <div class="game-header-container" id = gameHeader>
+            <div class="turn-display" id="turnDisplay">Test's Turn</div>
         </div>
-    </div>
-    <div class="game-stats-container">
-        <div class="game-stats">
-            <div class="player player-one-stats" id="playerOneStats" >
-                <div class="player-one-name" id="playerOneName">Test One</div>
-                <div class="player-one-score" id="playerOneScore">0</div>
-            </div>
-            <div class="player player-draw" id="playerDrawStats" >
-                <div class="draw-title" id="playerOneName">Test Draw</div>
-                <div class="draw-score" id="playerOneScore">0</div>
-            </div>
-            <div class="player player-two-score" id="playerTwoScore" >
-                <div class="player-two-name" id="playerTwoName">Test Two</div>
-                <div class="player-two-score" id="playerTwoScore">0</div>
+        <div class="gameboard-container">
+            <div class="gameBoard">
+                <div class="field" data-index="0"></div>
+                <div class="field" data-index="1"></div>
+                <div class="field" data-index="2"></div>
+                <div class="field" data-index="3"></div>
+                <div class="field" data-index="4"></div>
+                <div class="field" data-index="5"></div>
+                <div class="field" data-index="6"></div>
+                <div class="field" data-index="7"></div>
+                <div class="field" data-index="8"></div>
             </div>
         </div>
-    </div>
+        <div class="game-stats-container">
+            <div class="game-stats">
+                <div class="player player-one-stats" id="playerOneStats" >
+                    <div class="player-title player-one-name" id="playerOneName">Test One</div>
+                    <div class="player-score player-one-score" id="playerOneScore">0</div>
+                </div>
+                <div class="player player-draw" id="playerDrawStats" >
+                    <div class="player-title draw-title" id="playerOneName">Test Draw</div>
+                    <div class="player-score draw-score" id="playerOneScore">0</div>
+                </div>
+                <div class="player player-two-score" id="playerTwoScore" >
+                    <div class="player-title player-two-name" id="playerTwoName">Test Two</div>
+                    <div class="player-score player-two-score" id="playerTwoScore">0</div>
+                </div>
+            </div>
+        </div>
+    </div>    
 </body>
 </html>

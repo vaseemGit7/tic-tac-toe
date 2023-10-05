@@ -14,23 +14,76 @@ body{
     font-family: 'Poppins', sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-.container{
+.game-container{
+    display: grid;
+    place-items:center;
+    padding: 20px;
+}
+
+.game-header-container{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 20px;
+}
+
+.turn-display{
+    font-size: 2.6rem;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: beige;
+    margin-bottom: 15px;
 }
 
 .gameBoard{
     display: grid;
-    width: 484px;
-    height: 484px;
+    width: 450px;
+    height: 450px;
     grid-template-columns: repeat(3,1fr);
     grid-template-rows: repeat(3,1fr);
-    border: 2px solid black;
+    gap: 20px;
 }
 
 .field{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 6.0rem;
-    text-align: center;
-    border: 2px solid black;
+    background-color: #F3F4F6;
+    border-radius: 10px;
+}
+
+.game-stats-container{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.game-stats{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 60px;
+    margin: 20px;
+}
+
+.player{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:10px;
+    background-color:khaki;
+    padding: 20px 60px;
+    border-radius: 10px;
+}
+
+.player-title{
+    font-size: 2.2rem;
+    font-weight: 300;
+}
+
+.player-score{
+    font-size: 3.5rem;
+    font-weight: 600;
 }
