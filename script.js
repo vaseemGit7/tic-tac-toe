@@ -49,14 +49,14 @@ const displayController = (function(){
     const $playerTwoName = $playerTwoStats.querySelector('#playerTwoName');
     const $playerTwoScore = $playerTwoStats.querySelector('#playerTwoScore');
 
-    const $showModal = document.querySelector('.showModal');
     const $endgameDialogModal = document.querySelector('#endgameDialogModal');
-    
-    $showModal.addEventListener('click',(e)=>{
-        e.preventDefault();
-        $endgameDialogModal.showModal();
-    })
+    const $winnerAnnouncement = document.querySelector('#winnerAnnouncement');
+    const $playAgainBtn = document.querySelector('#playAgainBtn');
 
+    $playAgainBtn.addEventListener('click',()=>{
+        location.reload();
+    })
+    
     window.onload = () =>{
         _displayCurrentPlayer();
         _displayGameStats();
@@ -68,7 +68,8 @@ const displayController = (function(){
                 gameController.playRound(parseInt(e.target.dataset.index));
                 _displayCurrentPlayer();
                 _displayGameStats();
-                _renderGameBoard();
+                _renderGameBoard(); 
+                _displayEndGame();
             }
         })
     })   
@@ -85,13 +86,20 @@ const displayController = (function(){
         $drawScore.textContent = gameController.getDrawScore();
         $playerTwoScore.textContent = gameController.getPlayerTwoScore();
     }
+    
+    const _displayEndGame = () =>{
+        if(gameController.getIsOver()==true){
+            $endgameDialogModal.showModal();
+            $winnerAnnouncement.textContent = gameController.getWinner() + " is the Winner " ;
+        }
+    }
 
     const _renderGameBoard = () =>{
         for(let i = 0;i<$fields.length;i++){
             $fields[i].textContent = gameBoard.getField(i); 
         }
     }
-    
+
 })();
 
 const gameController =(function(){
@@ -166,7 +174,7 @@ const gameController =(function(){
             roundWinner = "playerTwo";
             console.log("Player Two is the round winner"); 
             }
-            _gamereset();
+            gamereset();
         }
         return checkConditions;
     }
@@ -183,28 +191,28 @@ const gameController =(function(){
         if(getPlayerOneScore()===3){
             winner = "Player One";
             isOver = true;
+            console.log("Player one win status : " +isOver);
         } 
         if(getPlayerTwoScore()===3){
             winner = "Player Two";
             isOver = true;
+            console.log("Player two win status : " +isOver);
         } 
     }
 
-    const gameOver = () =>{
-        const getWinner = () =>{
-            return winner;
-        }
-
-        const getIsOver = () =>{
-            return isOver; 
-        }
+    const getWinner = () =>{
+        return winner;
     }
-
+    
+    const getIsOver = () =>{
+        return isOver; 
+    }
+        
     const _gamereset = () =>{
         gameBoard.reset();
         roundWinner = "";
         moves = 0; 
     }
 
-    return{playRound, getCurrentPlayerName, getPlayerOneScore, getPlayerTwoScore, getDrawScore};
+    return{playRound, getCurrentPlayerName, getPlayerOneScore, getPlayerTwoScore, getDrawScore, getIsOver, getWinner};
 })();
