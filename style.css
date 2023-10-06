@@ -14,17 +14,79 @@ body{
     font-family: 'Poppins', sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-.game-container{
+.disabled{
+    display: none !important;
+}
+
+.intro-container, .game-container{
     display: grid;
     place-items:center;
     padding: 20px;
 }
 
-.game-header-container{
+.intro-header-container, .game-header-container{
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 20px;
+}
+
+.game-title{
+    font-size: 4.5rem;
+    font-weight: 700;
+    padding: 20px;
+}
+
+.intro-pvp-container{
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr;
+    height: 300px;
+}
+
+.player-one-input, .player-two-input{
+    border: none;
+    font-size: 5rem;
+    width: 9ch;
+    /* min-width: 50px;
+    max-width: 100%; */
+}
+
+.player-one-input{
+    align-self: start;
+    justify-self: end;
+}
+
+.versus{
+   place-self: center;
+   font-size: 3.5rem;
+}
+
+.player-two-input{
+    align-self: end;
+    justify-self: start;
+}
+
+.intro-initializer-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:20px;
+    margin-top: 70px;
+}
+
+.start-button{
+    font-size: 3rem;
+    font-weight: 600;
+    padding: 10px 70px;
+    border-radius: 10px;
+    border: none;
+    background-color: darkolivegreen;
+    color: bisque;
+}
+
+.notice{
+    font-size: 1.6rem;
+    color: gray;
 }
 
 .turn-display{
