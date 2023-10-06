@@ -9,7 +9,22 @@
     <script defer src="./script.js"></script>
 </head>
 <body>
-    <div class="game-container">
+    <div class="intro-container">
+        <div class="intro-header-container">
+            <div class="game-title">Tic Tac Toe</div>
+        </div>
+        <div class="intro-pvp-container">
+            <input type="text" placeholder="Player One" class="player-one-input" id="playerOneInput">
+            <div class="versus">VS</div>
+            <input type="text" placeholder="Player Two" class="player-two-input" id="playerTwoInput">
+        </div>
+        <div class="intro-initializer-container">
+            <button class="start-button" id="startButton">Start</button>
+            <p class="notice">Remember : X Goes first</p>
+            <p class="notice">Victory to first 3 wins</p>
+        </div>
+    </div>
+    <div class="game-container disabled">
         <div class="game-header-container" id = gameHeader>
             <div class="turn-display" id="turnDisplay">Test's Turn</div>
         </div>
