@@ -46,9 +46,9 @@ body{
 .player-one-input, .player-two-input{
     border: none;
     font-size: 5rem;
-    width: 9ch;
-    /* min-width: 50px;
-    max-width: 100%; */
+    width: 9ch ;
+    /* min-width: 50px; */
+    /* max-width: 100%; */
 }
 
 .player-one-input{
@@ -62,6 +62,7 @@ body{
 }
 
 .player-two-input{
+    margin-left: 20px;
     align-self: end;
     justify-self: start;
 }

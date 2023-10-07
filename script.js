@@ -36,6 +36,10 @@ const gameBoard = (function(){
 
 const displayController = (function(){
 
+    const $playerOneInput = document.querySelector('playerOneInput');
+    const $playerTwoInput = document.querySelector('playerTwoInput');
+    const $inputs = document.querySelectorAll('input');
+
     const $fields = document.querySelectorAll('.field'); 
     const $turnDisplay = document.querySelector('#turnDisplay');
 
@@ -55,6 +59,12 @@ const displayController = (function(){
 
     $playAgainBtn.addEventListener('click',()=>{
         location.reload();
+    })
+
+    $inputs.forEach((input)=>{
+        input.addEventListener('input',()=>{
+            input.style.width = input.value.length+1+"ch";
+        })
     })
     
     window.onload = () =>{
@@ -79,8 +89,8 @@ const displayController = (function(){
     }
 
     const _displayGameStats = () =>{
-        $playerOneName.textContent = "PlayerOne";
-        $playerTwoName.textContent = "PlayerTwo";
+        $playerOneName.textContent = getPlayerOneInput();
+        $playerTwoName.textContent = getPlayerTwoInput();
 
         $playerOneScore.textContent = gameController.getPlayerOneScore();
         $drawScore.textContent = gameController.getDrawScore();
@@ -100,11 +110,20 @@ const displayController = (function(){
         }
     }
 
+    const getPlayerOneInput = () =>{
+        return ($playerOneInput === null || $playerOneInput === undefined) ? "Player One" : $playerOneInput.value;
+    }
+
+    const getPlayerTwoInput = () =>{
+        return ($playerTwoInput === null || $playerTwoInput === undefined) ? "Player Two" : $playerTwoInput.value;
+    }
+
+    return{getPlayerOneInput,getPlayerTwoInput};
 })();
 
 const gameController =(function(){
-    const playerOne = Player("PlayerOne","X");
-    const playerTwo = Player("PlayerTwo","O");
+    const playerOne = Player(displayController.getPlayerOneInput(),"X");
+    const playerTwo = Player(displayController.getPlayerTwoInput(),"O");
 
     let playerOneWins = 0;
     let playerTwoWins = 0;
@@ -174,7 +193,7 @@ const gameController =(function(){
             roundWinner = "playerTwo";
             console.log("Player Two is the round winner"); 
             }
-            gamereset();
+            _gamereset();
         }
         return checkConditions;
     }
