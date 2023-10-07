@@ -70,25 +70,24 @@ const displayController = (function(){
     $startBtn.addEventListener('click',()=>{
         $introContainer.classList.add('screen-disabled');
         $gameContainer.classList.remove('screen-disabled');
-    }) 
-
-    $playAgainBtn.addEventListener('click',()=>{
-        location.reload();
-    })
-    
-    window.onload = () =>{
         _displayCurrentPlayer();
         _displayGameStats();
-    }
+    }) 
+
+    $playAgainBtn.addEventListener('click',(e)=>{
+        e.preventDefault();
+        $endgameDialogModal.close();
+        _displayGameStats();
+    })
 
     $fields.forEach((field)=>{
         field.addEventListener('click',(e)=>{
             if(e.target.textContent === ""){
                 gameController.playRound(parseInt(e.target.dataset.index));
+                _displayEndGame();
                 _displayCurrentPlayer();
                 _displayGameStats();
                 _renderGameBoard(); 
-                _displayEndGame();
             }
         })
     }) 
@@ -118,6 +117,7 @@ const displayController = (function(){
         if(gameController.getIsOver()==true){
             $endgameDialogModal.showModal();
             $winnerAnnouncement.textContent = gameController.getWinner() + " is the Winner " ;
+            gameController.gameReset();
         }
     }
 
@@ -168,7 +168,7 @@ const gameController =(function(){
     const playRound = (index) =>{
         moves++;
         gameBoard.setField(index,currentPlayer.getSign());
-        console.log(getCurrentPlayerName())
+        console.log(getCurrentPlayerName());
         _checkRoundWinner(index);
         _isDraw();
         _determineWinner();
@@ -203,7 +203,7 @@ const gameController =(function(){
             roundWinner = "playerTwo";
             console.log("Player Two is the round winner"); 
             }
-            _gamereset();
+            _roundReset();
         }
         return checkConditions;
     }
@@ -212,17 +212,17 @@ const gameController =(function(){
         if(_checkRoundWinner()===false && moves === 9){
             console.log("it is a draw");
             drawCount++;
-            _gamereset();
+            _roundReset();
         }    
     }
 
     const _determineWinner = () =>{
-        if(getPlayerOneScore()===3){
+        if(getPlayerOneScore()===2){
             winner = "Player One";
             isOver = true;
             console.log("Player one win status : " +isOver);
         } 
-        if(getPlayerTwoScore()===3){
+        if(getPlayerTwoScore()===2){
             winner = "Player Two";
             isOver = true;
             console.log("Player two win status : " +isOver);
@@ -237,11 +237,21 @@ const gameController =(function(){
         return isOver; 
     }
         
-    const _gamereset = () =>{
+    const _roundReset = () =>{
         gameBoard.reset();
         roundWinner = "";
         moves = 0; 
     }
 
-    return{playRound, getCurrentPlayerName, getPlayerOneScore, getPlayerTwoScore, getDrawScore, getIsOver, getWinner};
+    const gameReset = () =>{
+        _roundReset();
+        playerOneWins = 0;
+        playerTwoWins = 0;
+        drawCount = 0;
+        winner = "";
+        isOver = false;
+        currentPlayer = playerOne;
+    }
+
+    return{playRound, getCurrentPlayerName, getPlayerOneScore, getPlayerTwoScore, getDrawScore, getIsOver, getWinner, gameReset};
 })();
