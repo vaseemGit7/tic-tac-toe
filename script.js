@@ -36,9 +36,13 @@ const gameBoard = (function(){
 
 const displayController = (function(){
 
-    const $playerOneInput = document.querySelector('playerOneInput');
-    const $playerTwoInput = document.querySelector('playerTwoInput');
+    const $introContainer = document.querySelector('.intro-container');
+    const $gameContainer = document.querySelector('.game-container');
+
+    const $playerOneInput = document.querySelector('#playerOneInput');
+    const $playerTwoInput = document.querySelector('#playerTwoInput');
     const $inputs = document.querySelectorAll('input');
+    const $startBtn = document.querySelector('#startBtn');
 
     const $fields = document.querySelectorAll('.field'); 
     const $turnDisplay = document.querySelector('#turnDisplay');
@@ -56,15 +60,20 @@ const displayController = (function(){
     const $endgameDialogModal = document.querySelector('#endgameDialogModal');
     const $winnerAnnouncement = document.querySelector('#winnerAnnouncement');
     const $playAgainBtn = document.querySelector('#playAgainBtn');
-
-    $playAgainBtn.addEventListener('click',()=>{
-        location.reload();
-    })
-
+    
     $inputs.forEach((input)=>{
         input.addEventListener('input',()=>{
             input.style.width = input.value.length+1+"ch";
         })
+    })
+
+    $startBtn.addEventListener('click',()=>{
+        $introContainer.classList.add('screen-disabled');
+        $gameContainer.classList.remove('screen-disabled');
+    }) 
+
+    $playAgainBtn.addEventListener('click',()=>{
+        location.reload();
     })
     
     window.onload = () =>{
@@ -82,7 +91,15 @@ const displayController = (function(){
                 _displayEndGame();
             }
         })
-    })   
+    }) 
+    
+    const getPlayerOneInput = () =>{
+        return ($playerOneInput.value === "") ? "Player One" : $playerOneInput.value;
+    }
+
+    const getPlayerTwoInput = () =>{
+        return ($playerTwoInput.value === "") ? "Player Two" : $playerTwoInput.value;
+    }
 
     const _displayCurrentPlayer = () =>{
         $turnDisplay.textContent=gameController.getCurrentPlayerName()+"'s turn";
@@ -108,14 +125,6 @@ const displayController = (function(){
         for(let i = 0;i<$fields.length;i++){
             $fields[i].textContent = gameBoard.getField(i); 
         }
-    }
-
-    const getPlayerOneInput = () =>{
-        return ($playerOneInput === null || $playerOneInput === undefined) ? "Player One" : $playerOneInput.value;
-    }
-
-    const getPlayerTwoInput = () =>{
-        return ($playerTwoInput === null || $playerTwoInput === undefined) ? "Player Two" : $playerTwoInput.value;
     }
 
     return{getPlayerOneInput,getPlayerTwoInput};
@@ -159,6 +168,7 @@ const gameController =(function(){
     const playRound = (index) =>{
         moves++;
         gameBoard.setField(index,currentPlayer.getSign());
+        console.log(getCurrentPlayerName())
         _checkRoundWinner(index);
         _isDraw();
         _determineWinner();

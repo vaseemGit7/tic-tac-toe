@@ -14,7 +14,7 @@ body{
     font-family: 'Poppins', sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-.disabled{
+.screen-disabled{
     display: none !important;
 }
 
@@ -75,7 +75,7 @@ body{
     margin-top: 70px;
 }
 
-.start-button{
+.start-btn{
     font-size: 3rem;
     font-weight: 600;
     padding: 10px 70px;
