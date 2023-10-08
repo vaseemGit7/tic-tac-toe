@@ -9,7 +9,12 @@ const Player = (name,sign) =>{
     const getSign = () =>{
         return sign;
     }
-    return {getName, getSign};
+
+    const setName = (newName) =>{
+        name = newName;
+    }
+    
+    return {getName, getSign, setName};
 }
 
 const gameBoard = (function(){
@@ -70,6 +75,7 @@ const displayController = (function(){
     $startBtn.addEventListener('click',()=>{
         $introContainer.classList.add('screen-disabled');
         $gameContainer.classList.remove('screen-disabled');
+        _updatePlayerInput();
         _displayCurrentPlayer();
         _displayGameStats();
     }) 
@@ -92,6 +98,11 @@ const displayController = (function(){
         })
     }) 
     
+    const _updatePlayerInput = () =>{
+        gameController.updatePlayerName(getPlayerOneInput(),"playerOne");
+        gameController.updatePlayerName(getPlayerTwoInput(),"playerTwo");
+    }
+
     const getPlayerOneInput = () =>{
         return ($playerOneInput.value === "") ? "Player One" : $playerOneInput.value;
     }
@@ -144,6 +155,14 @@ const gameController =(function(){
     let moves = 0;
 
     let currentPlayer = playerOne;
+
+    const updatePlayerName = (name, player) => {
+        if (player === "playerOne") {
+            playerOne.setName(name);
+        } else if (player === "playerTwo") {
+            playerTwo.setName(name);
+        }
+    }    
 
     const _switchPlayers = () =>{
         currentPlayer = (currentPlayer === playerOne) ? playerTwo : playerOne;
@@ -217,13 +236,13 @@ const gameController =(function(){
     }
 
     const _determineWinner = () =>{
-        if(getPlayerOneScore()===2){
-            winner = "Player One";
+        if(getPlayerOneScore()===3){
+            winner = playerOne.getName();
             isOver = true;
             console.log("Player one win status : " +isOver);
         } 
-        if(getPlayerTwoScore()===2){
-            winner = "Player Two";
+        if(getPlayerTwoScore()===3){
+            winner = playerTwo.getName();
             isOver = true;
             console.log("Player two win status : " +isOver);
         } 
@@ -253,5 +272,5 @@ const gameController =(function(){
         currentPlayer = playerOne;
     }
 
-    return{playRound, getCurrentPlayerName, getPlayerOneScore, getPlayerTwoScore, getDrawScore, getIsOver, getWinner, gameReset};
+    return{playRound, updatePlayerName, getCurrentPlayerName, getPlayerOneScore, getPlayerTwoScore, getDrawScore, getIsOver, getWinner, gameReset};
 })();
