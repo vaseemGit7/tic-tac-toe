@@ -68,7 +68,7 @@ const displayController = (function(){
     
     $inputs.forEach((input)=>{
         input.addEventListener('input',()=>{
-            input.style.width = input.value.length+1+"ch";
+            input.style.width = input.value.length+3+"ch";
         })
     })
 

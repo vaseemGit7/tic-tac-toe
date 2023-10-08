@@ -1,4 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 @font-face {
     font-family: "Bigdex";
     src: url(./assets/fonts/Bigdex.otf),url(./assets/fonts/Bigdex.ttf);
@@ -10,17 +10,36 @@
     box-sizing: border-box;
 }
 
+:root{
+    --pink:#FFA5E6;
+    --purple: #6322BD;
+    --grey: #6b7280;
+}
+
 html{
     font-size: 62.5%;
 }
 
-body{
-    font-family: 'Bigdex', sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    background: rgb(223,139,200);
-    background: linear-gradient(90deg, rgba(223,139,200,1) 10%, rgba(148,102,212,1) 90%);
-    /* background: rgb(255,165,230);
-    background: linear-gradient(90deg, rgba(255,165,230,1) 10%, rgba(140,57,255,1) 90%); */
+body::before {
+    content: "";
+    position: absolute;
+    left:-200px;
+    bottom:-150px;
+    width: 40%;
+    height: 40%;
+    background-image: url(./assets/images/xo-background.jpg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    z-index: -1;
+    transform: rotate(45deg);
 }
+
+body{
+    font-family: 'Luckiest Guy', cursive, sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
 
 .screen-disabled{
     display: none !important;
@@ -39,9 +58,13 @@ body{
     margin: 20px;
 }
 
+.intro-container{
+    gap: 50px;
+}
+
 .game-title{
-    font-size: 4.5rem;
-    font-weight: 700;
+    font-family: 'Bigdex';
+    font-size: 5.5rem;
     padding: 20px;
 }
 
@@ -53,49 +76,55 @@ body{
 
 .player-one-input, .player-two-input{
     border: none;
-    font-size: 5rem;
-    width: 9ch ;
-    /* min-width: 50px; */
-    /* max-width: 100%; */
+    font-size: 6.5rem;
+    width: 12ch ;
+    text-align: center;
+    padding: 20px 40px;
+    border-radius: 20px ;
 }
 
 .player-one-input{
     align-self: start;
     justify-self: end;
+    color: var(--purple);
+    background-color: transparent;
 }
 
 .versus{
+   font-family: 'Bigdex'; 
    place-self: center;
-   font-size: 3.5rem;
+   font-size: 4rem;
 }
 
 .player-two-input{
-    margin-left: 20px;
     align-self: end;
     justify-self: start;
+    color: var(--pink);
+    background-color: transparent;
 }
 
 .intro-initializer-container{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:20px;
+    gap:40px;
     margin-top: 70px;
 }
 
 .start-btn{
     font-size: 3rem;
-    font-weight: 600;
     padding: 10px 70px;
     border-radius: 10px;
     border: none;
-    background-color: darkolivegreen;
-    color: bisque;
+    background: rgb(223,139,200);
+    background: linear-gradient(90deg, rgba(223,139,200,1) 10%, rgba(148,102,212,1) 90%);
+    color: white;
 }
 
 .notice{
     font-size: 1.6rem;
-    color: gray;
+    padding: 10px;
+    color: var(--grey);
 }
 
 .turn-display{
@@ -189,3 +218,34 @@ body{
     padding: 20px 70px;
     border-radius: 10px;
 }    
+
+.player-one-input::placeholder{
+    color: var(--pink);
+    opacity: 1;
+}
+
+.player-two-input::placeholder{
+    color:var(--purple);
+    opacity: 1;
+}
+
+.player-one-input:hover, .player-one-input:focus{
+    outline: none;
+    background-color: var(--purple);
+    color: var(--pink);
+    box-shadow: 0px 4px 4px 0px rgba(244, 63, 94, 0.50);
+}
+
+.player-two-input:hover, .player-two-input:focus{
+    outline: none;
+    background-color: var(--pink);
+    color: var(--purple);
+    box-shadow: 0px 4px 4px 0px rgba(76, 29, 149, 0.50);
+}
+
+.start-btn:hover{
+    scale: 1.1;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    background: rgb(223,139,200);
+    background: linear-gradient(90deg,rgba(148,102,212,1) 10%,rgba(223,139,200,1) 90%);
+}
