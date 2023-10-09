@@ -113,6 +113,14 @@ const displayController = (function(){
 
     const _displayCurrentPlayer = () =>{
         $turnDisplay.textContent=gameController.getCurrentPlayerName()+"'s turn";
+        if(gameController.getCurrentPlayerName()===getPlayerOneInput()){
+            $turnDisplay.classList.add('turn-display-p-one');
+            $turnDisplay.classList.remove('turn-display-p-two');
+        }
+        else if(gameController.getCurrentPlayerName()===getPlayerTwoInput()){
+            $turnDisplay.classList.add('turn-display-p-two');
+            $turnDisplay.classList.remove('turn-display-p-one');
+        }
     }
 
     const _displayGameStats = () =>{

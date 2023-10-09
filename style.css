@@ -131,7 +131,6 @@ body{
     font-size: 2.6rem;
     padding: 20px;
     border-radius: 10px;
-    background-color: beige;
     margin-bottom: 15px;
 }
 
@@ -145,11 +144,12 @@ body{
 }
 
 .field{
+    font-family: 'Bigdex';
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 6.0rem;
-    background-color: #F3F4F6;
+    font-size: 7rem;
+    background-color: #f3f4f6;
     border-radius: 10px;
 }
 
@@ -173,7 +173,8 @@ body{
     flex-direction: column;
     align-items: center;
     gap:10px;
-    background-color:khaki;
+    background-color:#D9D9D9;
+    color: #0f172a;
     padding: 20px 60px;
     border-radius: 10px;
 }
@@ -184,7 +185,7 @@ body{
 }
 
 .player-score{
-    font-size: 3.5rem;
+    font-size: 3.8rem;
     font-weight: 600;
 }
 
@@ -217,7 +218,18 @@ body{
     font-weight: 700;
     padding: 20px 70px;
     border-radius: 10px;
-}    
+}   
+
+
+.turn-display-p-one, .player-one-stats{
+    background-color: var(--purple);
+    color: var(--pink);
+}
+
+.turn-display-p-two, .player-two-stats{
+    background-color: var(--pink);
+    color: var(--purple);
+}
 
 .player-one-input::placeholder{
     color: var(--pink);
@@ -248,4 +260,10 @@ body{
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     background: rgb(223,139,200);
     background: linear-gradient(90deg,rgba(148,102,212,1) 10%,rgba(223,139,200,1) 90%);
+}
+
+.field:hover{
+    scale: 1.1;
+    background-color: #e5e7eb;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.096);
 }
