@@ -73,17 +73,21 @@ const displayController = (function(){
     })
 
     $startBtn.addEventListener('click',()=>{
-        $introContainer.classList.add('screen-disabled');
-        $gameContainer.classList.remove('screen-disabled');
-        _updatePlayerInput();
-        _displayCurrentPlayer();
-        _displayGameStats();
+        setTimeout(()=>{
+            $introContainer.classList.add('screen-disabled');
+            $gameContainer.classList.remove('screen-disabled');
+            _updatePlayerInput();
+            _displayCurrentPlayer();
+            _displayGameStats();
+        },300)
     }) 
 
     $playAgainBtn.addEventListener('click',(e)=>{
-        e.preventDefault();
-        $endgameDialogModal.close();
-        _displayGameStats();
+        setTimeout(()=>{
+            e.preventDefault();
+            $endgameDialogModal.close();
+            _displayGameStats();
+        },300)
     })
 
     $fields.forEach((field)=>{
@@ -135,7 +139,7 @@ const displayController = (function(){
     const _displayEndGame = () =>{
         if(gameController.getIsOver()==true){
             $endgameDialogModal.showModal();
-            $winnerAnnouncement.textContent = gameController.getWinner() + " is the Winner " ;
+            $winnerAnnouncement.textContent = gameController.getWinner() + " is the Winner!! " ;
             gameController.gameReset();
         }
     }
