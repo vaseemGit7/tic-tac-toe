@@ -22,8 +22,6 @@ const gameBoard = (function(){
 
     const setField = (index,sign)=>{
         board[index]=sign;
-        console.log(index + " = " +sign)
-        console.log(board);
     }
 
     const getField = (index) =>{
@@ -165,16 +163,75 @@ const gameController =(function(){
     let isOver = false;
 
     let moves = 0;
-
     let currentPlayer = playerOne;
+
+    const winConditions = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ];
 
     const updatePlayerName = (name, player) => {
         if (player === "playerOne") {
             playerOne.setName(name);
-        } else if (player === "playerTwo") {
+        } 
+        else if (player === "playerTwo") {
             playerTwo.setName(name);
         }
-    }    
+    }  
+    
+    
+    const _checkRoundWinner = (fieldIndex) =>{
+        let checkConditions = winConditions.filter((condition)=>
+            condition.includes(fieldIndex))
+            .some((possible)=>possible.every((index)=>gameBoard.getField(index)===currentPlayer.getSign())
+        );
+
+        if(checkConditions === true){
+            if(currentPlayer.getSign()==="X"){
+            playerOneWins++;
+            roundWinner = "playerOne";
+            }
+            else{
+            playerTwoWins++;  
+            roundWinner = "playerTwo";
+            }
+            _roundReset();
+        }
+        return checkConditions;
+    }
+
+    const _isDraw = () =>{
+        if(_checkRoundWinner()===false && moves === 9){
+            drawCount++;
+            _roundReset();
+        }    
+    }
+
+    const _determineWinner = () =>{
+        if(getPlayerOneScore()===3){
+            winner = playerOne.getName();
+            isOver = true;
+        } 
+        if(getPlayerTwoScore()===3){
+            winner = playerTwo.getName();
+            isOver = true;
+        } 
+    }
+
+    const playRound = (index) =>{
+        moves++;
+        gameBoard.setField(index,currentPlayer.getSign());
+        _checkRoundWinner(index);
+        _isDraw();
+        _determineWinner();
+        _switchPlayers();
+    }
 
     const _switchPlayers = () =>{
         currentPlayer = (currentPlayer === playerOne) ? playerTwo : playerOne;
@@ -194,70 +251,6 @@ const gameController =(function(){
 
     const getDrawScore = () =>{
         return drawCount;
-    }
-
-    const playRound = (index) =>{
-        moves++;
-        gameBoard.setField(index,currentPlayer.getSign());
-        console.log(getCurrentPlayerName());
-        _checkRoundWinner(index);
-        _isDraw();
-        _determineWinner();
-        _switchPlayers();
-    }
-
-    const _checkRoundWinner = (fieldIndex) =>{
-        const winConditions = [
-            [0,1,2],
-            [3,4,5],
-            [6,7,8],
-            [0,3,6],
-            [1,4,7],
-            [2,5,8],
-            [0,4,8],
-            [2,4,6]
-        ]
-
-        let checkConditions = winConditions.filter((condition)=>
-            condition.includes(fieldIndex))
-            .some((possible)=>possible.every((index)=>gameBoard.getField(index)===currentPlayer.getSign())
-        );
-
-        if(checkConditions === true){
-            if(currentPlayer.getSign()==="X"){
-            playerOneWins++;
-            roundWinner = "playerOne";
-            console.log("Player One is the round winner");
-            }
-            else{
-            playerTwoWins++;  
-            roundWinner = "playerTwo";
-            console.log("Player Two is the round winner"); 
-            }
-            _roundReset();
-        }
-        return checkConditions;
-    }
-
-    const _isDraw = () =>{
-        if(_checkRoundWinner()===false && moves === 9){
-            console.log("it is a draw");
-            drawCount++;
-            _roundReset();
-        }    
-    }
-
-    const _determineWinner = () =>{
-        if(getPlayerOneScore()===3){
-            winner = playerOne.getName();
-            isOver = true;
-            console.log("Player one win status : " +isOver);
-        } 
-        if(getPlayerTwoScore()===3){
-            winner = playerTwo.getName();
-            isOver = true;
-            console.log("Player two win status : " +isOver);
-        } 
     }
 
     const getWinner = () =>{
@@ -284,5 +277,15 @@ const gameController =(function(){
         currentPlayer = playerOne;
     }
 
-    return{playRound, updatePlayerName, getCurrentPlayerName, getPlayerOneScore, getPlayerTwoScore, getDrawScore, getIsOver, getWinner, gameReset};
+    return{
+        playRound, 
+        updatePlayerName, 
+        getCurrentPlayerName, 
+        getPlayerOneScore, 
+        getPlayerTwoScore, 
+        getDrawScore, 
+        getIsOver, 
+        getWinner, 
+        gameReset
+    };
 })();

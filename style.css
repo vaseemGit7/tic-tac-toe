@@ -19,24 +19,22 @@
 
 html{
     font-size: 62.5%;
-    height: 100vh;
-    overflow: hidden;
 }
 
 body::before {
     content: "";
     position: absolute;
-    left:-200px;
-    bottom:-150px;
-    width: 40%;
-    height: 40%;
+    left:-15vh;
+    bottom:10vh;
+    width: 25vw;
+    height: 30vh;
     background-image: url(./assets/images/xo-background.jpg);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
     opacity: 0.5;
     z-index: -1;
-    transform: rotate(45deg);
+    transform: rotate(30deg);
 }
 
 body{
